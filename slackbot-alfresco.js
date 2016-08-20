@@ -1,14 +1,3 @@
-/*
-	TODO:  
-		folder per chat
-		folder per user inside folder per chat
-		handle name collisions
-		search?
-		list files?
-			by date range?
-			by user?
-*/
-
 const cmis = require('cmis');
 const botkit = require('botkit');
 const https = require('https');
