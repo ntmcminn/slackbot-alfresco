@@ -47,7 +47,7 @@ node slackbot-alfresco.js
 If all goes well, you should see the bot start up and connect to Slack.  Add the bot you created earlier to a
 channel and test it out:
 
-@yourbotname hello
+__@yourbotname hello__
 
 And the bot should echo back its version.  Did it work?  Great!
 
@@ -57,7 +57,7 @@ for the channel, and under that a folder for the user that uploaded the file.
 
 But that's not all!  Try archiving a portion of your chat!
 
-@yourbotname archive
+__@yourbotname archive__
 
 This will initiate a conversation with the bot where it asks you how much of the chat you want to archive.  Right now only 
 message count is working, I'm having trouble with date ranges in the Slack API.  Try asking the bot to archive 10 messages.
@@ -65,7 +65,7 @@ Those messages will be archived to the site you have configured, in a folder nam
 
 Let's try a search.
 
-@yourbotname search
+__@yourbotname search__
 
 This again initiates a conversation with the bot.  This time, the bot will ask you what you want to search for.  Give
 it a term and it should return up to 10 matching results.
