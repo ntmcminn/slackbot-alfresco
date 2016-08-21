@@ -35,20 +35,35 @@ providing the hostname, port, username and password for your instance, along wit
 Here's what the configuration object looks like:
 
 {	
+
 	"alfresco": {
+
     	"host": "localhost",
+
         "port": "8080",
+
         "user": "username",
+
         "pass": "password",
+
         "site": "slackstuff",
+
         "logoUrl": "https://www.alfresco.com/sites/www.alfresco.com/files/alfresco-logo.png",
+
         "search": {
+
             "max": "10"
+
         }
+
     },
+
     "slack": {
+
     	"token": "<your slack bot token>"
+
     }
+    
 }
 
 Running
