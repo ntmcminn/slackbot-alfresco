@@ -48,10 +48,7 @@ var uploadAndLink = function (bot, message, callback) {
 	
 	var fileMessage = {
 		slackFileUrl: message.file.url_private,
-		properties: {
-			name: message.file.name,
-			description: "description"
-		},
+		properties: buildCmisProperties(message.file.name, 'description'),
 		uploadedBy: message.user,
 		channel: message.channel,
 		folderPath: [message.channel,message.user],
@@ -152,7 +149,7 @@ var getSiteDoclib = function(session, callback){
 }
 
 var createDocument = function(folderId, session, fileMessage){
-	console.log('uploading file to Alfresco as ' + fileMessage.properties.name);
+	console.log('uploading file to Alfresco as ' + fileMessage.properties['cmis:name']);
 
 	// is this a file?  If not, just use the provided data
 	if(fileMessage.path){
@@ -173,7 +170,7 @@ var createDocumentCmis = function(folderId, data, properties, callback){
 			callback(alfrescoGetContentUrl + docdata.succinctProperties['cmis:objectId']);
 		})
 		.notOk(function(err) {
-			console.log('failed to create and upload content: ' + err);
+			console.log('failed to create and upload content: ' + util.inspect(err, false, null));
 			//console.log(util.inspect(err, false, null));
 			//callback(err);
 		});
@@ -182,8 +179,10 @@ var createDocumentCmis = function(folderId, data, properties, callback){
 var buildCmisProperties = function(name, description){
 	var properties = {
 		'cmis:name': name,
-		'cmis:description': description
+		'cmis:description': description,
+		'cmis:objectTypeId': 'cmis:document'
 	}
+	return properties;
 }
 
 var createPathIfNotExists = function(parentId, nameList, session, callback){
@@ -302,10 +301,7 @@ var getFile = function(fileMessage, uploadToAlfrescoCallback) {
 var archiveChatToAlfresco = function(bot, message, archiveRequest){
 
 	var fileMessage = {
-		properties: {
-			name: archiveRequest.archiveName,
-			description: "description"
-		},
+		properties: buildCmisProperties(archiveRequest.archiveName, 'description'),
 		folderpath: ['archives',generateDayFolder()],
 		bot: bot,
 		linkPostCallback: function(archiveLink) {
