@@ -44,8 +44,8 @@ Now just run node:
 
 node slackbot-alfresco.js
 
-If all goes well, you should see the bot start up and connect to Slack.  Add the bot you created earlier to a
-channel and test it out:
+If all goes well, you should see the bot start up and connect to Slack.  Add the bot account you created earlier in Slack to a
+Slack channel and test it out:
 
 __@yourbotname hello__
 
