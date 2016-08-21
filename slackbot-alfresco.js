@@ -350,6 +350,7 @@ var generateArchiveFileName = function(){
 	var timePart = dateObj.valueOf();
 	return datePart + '-' + timePart + '-archive.txt';
 }
+
 var parseArchiveParameters = function(archiveRequest, responseText){
 
 	//get the number
@@ -451,8 +452,7 @@ controller.hears('help',['direct_mention'], function (bot,message) {
 	bot.reply(message, '2.  I can show you my configuration: @<my name> config');
 	bot.reply(message, '3.  I can show you my version: @<my name> hello');
 	bot.reply(message, '4.  I can search for files: @<my name> search');
-	bot.reply(message, '5.  I can list files recently uploaded by a user: @<my name> list <username(optional)>');
-
+	bot.reply(message, '5.  I can archive part of this chat to Alfresco: @<my name> archive');
 });
 
 controller.hears('search',['direct_mention'], function (bot,message) {
