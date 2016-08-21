@@ -45,10 +45,18 @@ var uploadAndLink = function (bot, message, callback) {
 
 	console.log('I got a message:' + message);
 	//console.log(util.inspect(message, false, null));
-	
+	var description;
+
+	if(message.file.initial_comment){
+		description = message.file.initial_comment.comment
+	}
+	else{
+		description = '';
+	}
+
 	var fileMessage = {
 		slackFileUrl: message.file.url_private,
-		properties: buildCmisProperties(message.file.name, 'description'),
+		properties: buildCmisProperties(message.file.name, description),
 		uploadedBy: message.user,
 		channel: message.channel,
 		folderPath: [message.channel,message.user],
@@ -301,7 +309,7 @@ var getFile = function(fileMessage, uploadToAlfrescoCallback) {
 var archiveChatToAlfresco = function(bot, message, archiveRequest){
 
 	var fileMessage = {
-		properties: buildCmisProperties(archiveRequest.archiveName, 'description'),
+		properties: buildCmisProperties(archiveRequest.archiveName, 'Archived Slack chat'),
 		folderpath: ['archives',generateDayFolder()],
 		bot: bot,
 		linkPostCallback: function(archiveLink) {
