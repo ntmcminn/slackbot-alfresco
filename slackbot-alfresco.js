@@ -48,7 +48,10 @@ var uploadAndLink = function (bot, message, callback) {
 	
 	var fileMessage = {
 		slackFileUrl: message.file.url_private,
-		fileName: message.file.name,
+		properties: {
+			name: message.file.name,
+			description: "description"
+		},
 		uploadedBy: message.user,
 		channel: message.channel,
 		folderPath: [message.channel,message.user],
@@ -149,20 +152,20 @@ var getSiteDoclib = function(session, callback){
 }
 
 var createDocument = function(folderId, session, fileMessage){
-	console.log('uploading file to Alfresco as ' + fileMessage.fileName);
+	console.log('uploading file to Alfresco as ' + fileMessage.properties.name);
 
 	// is this a file?  If not, just use the provided data
 	if(fileMessage.path){
 		fs.readFile(fileMessage.path, function(err, fileContent) {
-			createDocumentCmis(folderId, fileContent, fileMessage.fileName, fileMessage.linkPostCallback);
+			createDocumentCmis(folderId, fileContent, fileMessage.properties, fileMessage.linkPostCallback);
 		});
 	}else if(fileMessage.data){
-		createDocumentCmis(folderId, fileMessage.data, fileMessage.fileName, fileMessage.linkPostCallback);
+		createDocumentCmis(folderId, fileMessage.data, fileMessage.properties, fileMessage.linkPostCallback);
 	}
 }
 
-var createDocumentCmis = function(folderId, data, fileName, callback){
-	session.createDocument(folderId, data, fileName)
+var createDocumentCmis = function(folderId, data, properties, callback){
+	session.createDocument(folderId, data, properties)
 		// TODO:  set Slack description as Alfresco CMIS description
 		.ok(function(docdata) {
 			//console.log(util.inspect(docdata, false, null));
@@ -174,6 +177,13 @@ var createDocumentCmis = function(folderId, data, fileName, callback){
 			//console.log(util.inspect(err, false, null));
 			//callback(err);
 		});
+}
+
+var buildCmisProperties = function(name, description){
+	var properties = {
+		'cmis:name': name,
+		'cmis:description': description
+	}
 }
 
 var createPathIfNotExists = function(parentId, nameList, session, callback){
@@ -292,7 +302,10 @@ var getFile = function(fileMessage, uploadToAlfrescoCallback) {
 var archiveChatToAlfresco = function(bot, message, archiveRequest){
 
 	var fileMessage = {
-		fileName: archiveRequest.archiveName,
+		properties: {
+			name: archiveRequest.archiveName,
+			description: "description"
+		},
 		folderpath: ['archives',generateDayFolder()],
 		bot: bot,
 		linkPostCallback: function(archiveLink) {
