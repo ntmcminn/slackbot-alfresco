@@ -1,0 +1,31 @@
+{
+  "name": "slackbot-alfresco",
+  "version": "1.0.0",
+  "description": "slackbot-alfresco ====================",
+  "main": "slackbot-alfresco.js",
+  "dependencies": {
+    "botkit": "^0.2.2",
+    "cmis": "^0.3.1",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "nconf": "^0.8.4",
+    "tmp": "0.0.29",
+    "url": "^0.11.0",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+      "test": "testfoo",
+      "start": "node slackbot-alfresco.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntmcminn/slackbot-alfresco.git"
+  },
+  "author": "Nathan McMinn, Andreas Steffan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ntmcminn/slackbot-alfresco/issues"
+  },
+  "homepage": "https://github.com/ntmcminn/slackbot-alfresco#readme"
+}
