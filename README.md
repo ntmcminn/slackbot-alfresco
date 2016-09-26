@@ -92,3 +92,9 @@ This again initiates a conversation with the bot.  This time, the bot will ask y
 it a term and it should return up to 10 matching results.
 
 I'd love to hear suggestions on what other features people want!
+
+Dockerization
+--------------------
+
+docker build -t alfresco-slackbot .
+docker run --net=host -v /whereever/config.json:/usr/src/app/config.json --rm alfresco-slackbot
